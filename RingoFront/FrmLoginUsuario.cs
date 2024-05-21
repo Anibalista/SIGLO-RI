@@ -5,7 +5,7 @@ namespace RingoFront
 {
     public partial class FrmLoginUsuario : Form
     {
-        List<Usuarios> usuariolista = new List<Usuarios>();
+
         public FrmLoginUsuario()
         {
             InitializeComponent();
@@ -36,10 +36,21 @@ namespace RingoFront
 
                 if (LoginUsuario.login(parametro)) //el metodo login devuelve true o false
                 {
+                    //Guarda las credenciales del usuairo que puede entrar el usuario
+
+                    
+                    List<string>? acceso = new();
+                    acceso = LoginUsuario.Permisos(parametro);
+
+
                     //si devuelve true debe abrir el MDI Parent 'FrmPrincipal' y cerrar el login
 
+
+
+
                     //Prueba con un mensaje
-                    MessageBox.Show("Ingreso Exitoso");
+                    MessageBox.Show("Ingreso Exitoso. Usuario " + acceso.Count());
+
                 }
                 else
                 {

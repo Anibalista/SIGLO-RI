@@ -8,7 +8,7 @@ namespace RingoNegocio
     {
         public static bool login (Usuarios u)
         {
-            Usuarios? user = RingoDatosEF.usuario(u);
+            Usuarios? user = RingoDatosEF.Usuario(u);
             if (user == null)
             {
                 return false;
@@ -16,6 +16,22 @@ namespace RingoNegocio
             {
                 return true;
             }
+        }
+
+        public static List<string>? Permisos(Usuarios u)
+        {
+            List<string> codigos = new();
+            try
+            {
+                codigos = RingoDatosEF.Credenciales(u);
+            } catch (Exception ex)
+            {
+                
+            }
+            
+
+
+            return codigos;
         }
     }
 }
