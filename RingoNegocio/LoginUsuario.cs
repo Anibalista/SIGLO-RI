@@ -20,16 +20,15 @@ namespace RingoNegocio
 
         public static List<string>? Permisos(Usuarios u)
         {
+
             List<string> codigos = new();
             try
             {
-                codigos = RingoDatosEF.Credenciales(u);
+                codigos = (from cod in RingoDatosEF.Credenciales(u) select cod.CodigoCredencial).ToList();
             } catch (Exception ex)
             {
-                
+                codigos.Add(ex.Message);
             }
-            
-
 
             return codigos;
         }

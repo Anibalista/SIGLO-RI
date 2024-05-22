@@ -19,6 +19,6 @@ namespace RingoEntidades
         public required string CodigoCredencial { get; set; }
 
         [MaxLength(150)]
-        public string? PermisosOtrogados { get; set; }
+        public string? PermisosOtorgados { get; set; }
     }
 }

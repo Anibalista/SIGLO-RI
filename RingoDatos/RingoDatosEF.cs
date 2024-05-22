@@ -22,20 +22,19 @@ namespace RingoDatos
             return user;
         }
 
-        public static List<string> Credenciales(Usuarios e)
+        public static List<Credenciales> Credenciales(Usuarios e)
         {
             ringoContext = new RingoDbContext();
-            List<string> referencias = new();
-            //List<Credenciales> credenciales = new();
-
-            if(ringoContext.Usuarios == null || ringoContext.Credenciales == null || ringoContext.UsuariosCredenciales == null) 
+            List<UsuariosCredenciales> usuarioscredenciales = new();
+            List<Credenciales> credenciales = new();
+            /*
+            //List<string> referencias = new();
+            if (ringoContext.Usuarios == null || ringoContext.Credenciales == null || ringoContext.UsuariosCredenciales == null) 
             {
                 return referencias;
             }
-
-
             
-            referencias = ringoContext.Credenciales.Join(ringoContext.UsuariosCredenciales,
+            credenciales = ringoContext.Credenciales.Join(ringoContext.UsuariosCredenciales,
                           c => c.IdCredencial, uc => uc.IdCredencial,(c, uc) => new
                                                                      {
                                                                         Credencial = c,
@@ -44,12 +43,10 @@ namespace RingoDatos
                                                 .Where(joined => joined.IdUsuario == e.IdUsuario)
                                                 .Select(joined => joined.Credencial.CodigoCredencial)
                                                 .ToList();
-           
-            //permisos = ringoContext.credenciales
-            //credenciales = ringoContext.Credenciales.Where(c => ringoContext.UsuariosCredenciales.Any(
-            //  uc => uc.IdUsuario == e.IdUsuario && uc.IdCredencial == c.IdCredencial)).ToList();
-
-            return referencias;
+           */
+            usuarioscredenciales = ringoContext.UsuariosCredenciales.Include("Credencial").Where(uc => uc.IdUsuario == e.IdUsuario).ToList();
+            credenciales = (from codigo in usuarioscredenciales where codigo.CodigoCredencial != null select codigo.Credencial).ToList();
+            return credenciales;
         }
         
     }
