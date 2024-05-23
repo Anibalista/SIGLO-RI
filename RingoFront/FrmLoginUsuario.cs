@@ -23,7 +23,7 @@ namespace RingoFront
             string contraseñaBuscar = txtContraseña.Text;
 
             //crear un Objeto usuarios vacio llamado parametro
-            Usuarios parametro = new Usuarios();
+            Usuarios parametro = new();
 
             // Verificamos que no hayan espacios en blanco o ingreso nulo
             if (!String.IsNullOrWhiteSpace(usuarioBuscar) && !String.IsNullOrWhiteSpace(contraseñaBuscar))
@@ -38,21 +38,26 @@ namespace RingoFront
                 {
                     //Guarda las credenciales del usuairo que puede entrar el usuario
 
-                    
-                    List<string>? acceso;
-                    acceso = LoginUsuario.Permisos(parametro);
-                    string mensaje = "Codigos de acceso: ";
+                    List<Credenciales>? credenciales = new();
+                    credenciales = LoginUsuario.Permisos(parametro);
+                    List<string>? acceso = new();
+                    acceso = (from credencial in credenciales select credencial.CodigoCredencial).ToList();
+                    string mensaje = "Codigos de acceso: \n";
 
                     if ( acceso != null)
                     {
                         for (int i = 0; i < acceso.Count(); i++)
                         {
                             mensaje += acceso.ElementAt(i);
+                            if (i == acceso.Count() - 1)
+                                mensaje += "!";
+                            else
+                                mensaje += "\n";
                         }
                     }
                     else
                     {
-                        mensaje = "No tiene codigos de acceso";
+                        mensaje = "\n No tiene codigos de acceso";
                     }
 
                     //si devuelve true debe abrir el MDI Parent 'FrmPrincipal' y cerrar el login
@@ -61,7 +66,7 @@ namespace RingoFront
 
 
                     //Prueba con un mensaje
-                    MessageBox.Show("Ingreso Exitoso. " + mensaje);
+                    MessageBox.Show("Ingreso Exitoso. \n" + mensaje);
 
                 }
                 else

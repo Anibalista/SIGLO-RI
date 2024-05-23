@@ -10,7 +10,7 @@ namespace RingoEntidades
     public class Estados
     {
         [Key]
-        public string IdEstado { get; set; }
+        public int IdEstado { get; set; }
 
         [MaxLength(50)]
         public string? Indole { get; set;}

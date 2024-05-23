@@ -26,10 +26,10 @@ namespace RingoEntidades
         public string? Observaciones { get; set; }
 
         [ForeignKey("CondicionFiscal")]
-        public int IdCondicionFiscal { get; set; }
+        public int? IdCondicionFiscal { get; set; }
 
         [ForeignKey("Estado")]
-        public int IdEstado { get; set; }
+        public int? IdEstado { get; set; }
 
         public CondicionesFiscales? CondicionFiscal { get; set; }
         public Estados? Estado { get; set; }

@@ -18,19 +18,21 @@ namespace RingoNegocio
             }
         }
 
-        public static List<string>? Permisos(Usuarios u)
+        public static List<Credenciales>? Permisos(Usuarios u)
         {
 
-            List<string> codigos = new();
+            List<Credenciales> credenciales = new();
             try
             {
-                codigos = (from cod in RingoDatosEF.Credenciales(u) select cod.CodigoCredencial).ToList();
+                credenciales = RingoDatosEF.Accesos(u);
             } catch (Exception ex)
             {
-                codigos.Add(ex.Message);
+                Credenciales? nula = new Credenciales();
+                nula.CodigoCredencial = ex.Message;
+                credenciales.Add(nula);
             }
 
-            return codigos;
+            return credenciales;
         }
     }
 }

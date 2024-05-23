@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RingoEF;
 using RingoEntidades;
+using System.Linq;
 
 namespace RingoDatos
 {
@@ -18,34 +19,22 @@ namespace RingoDatos
                 return user;
             }
 
-            user = ringoContext.Usuarios.Where(u => u.NombreUsuario == e.NombreUsuario && u.ClaveUsuario == e.ClaveUsuario).FirstOrDefault();
+            user = (from usuario in ringoContext.Usuarios
+                    where usuario != null && usuario.NombreUsuario == e.NombreUsuario && usuario.ClaveUsuario == e.ClaveUsuario
+                    select usuario).FirstOrDefault();
             return user;
         }
 
-        public static List<Credenciales> Credenciales(Usuarios e)
+        public static List<Credenciales>? Accesos (Usuarios e)
         {
             ringoContext = new RingoDbContext();
-            List<UsuariosCredenciales> usuarioscredenciales = new();
+            List<int> ids = new List<int>();
+            ids = (from uc in ringoContext.UsuariosCredenciales where uc != null && uc.IdUsuario == e.IdUsuario
+                   select uc.IdCredencial).ToList();
             List<Credenciales> credenciales = new();
-            /*
-            //List<string> referencias = new();
-            if (ringoContext.Usuarios == null || ringoContext.Credenciales == null || ringoContext.UsuariosCredenciales == null) 
-            {
-                return referencias;
-            }
-            
-            credenciales = ringoContext.Credenciales.Join(ringoContext.UsuariosCredenciales,
-                          c => c.IdCredencial, uc => uc.IdCredencial,(c, uc) => new
-                                                                     {
-                                                                        Credencial = c,
-                                                                        IdUsuario = uc.IdUsuario
-                                                                     })
-                                                .Where(joined => joined.IdUsuario == e.IdUsuario)
-                                                .Select(joined => joined.Credencial.CodigoCredencial)
-                                                .ToList();
-           */
-            usuarioscredenciales = ringoContext.UsuariosCredenciales.Include("Credencial").Where(uc => uc.IdUsuario == e.IdUsuario).ToList();
-            credenciales = (from codigo in usuarioscredenciales where codigo.CodigoCredencial != null select codigo.Credencial).ToList();
+            credenciales = (from credencial in ringoContext.Credenciales
+                            where credencial != null && ids.Contains(credencial.IdCredencial)
+                            select credencial).ToList();
             return credenciales;
         }
         
