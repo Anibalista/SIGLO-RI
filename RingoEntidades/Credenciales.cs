@@ -16,7 +16,7 @@ namespace RingoEntidades
         public string? TipoCredencial { get; set; }
         
         [MaxLength(20)]
-        public required string CodigoCredencial { get; set; }
+        public string? CodigoCredencial { get; set; }
 
         [MaxLength(150)]
         public string? PermisosOtorgados { get; set; }
