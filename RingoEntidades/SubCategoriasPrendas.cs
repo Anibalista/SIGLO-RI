@@ -8,28 +8,27 @@ using System.Threading.Tasks;
 
 namespace RingoEntidades
 {
-    public class UsuariosCredenciales
+    public class SubCategoriasPrendas
     {
         [Key]
-        public int IdUsuarioCredencial { get; set; }
+        public int IdSubCategoriaPrenda { get; set; }
 
-        [ForeignKey("Usuario")]
-        public int IdUsuario { get; set; }
+        [MaxLength(100)]
+        public required string SubCategoria { get; set; }
 
-        [ForeignKey("Credencial")]
-        public int IdCredencial { get; set; }
+        [ForeignKey("CategoriaPrenda")]
+        public int IdCategoriaPrenda { get; set; }
 
-        public Usuarios? Usuario { get; set; }
-        public Credenciales? Credencial { get; set; }
+        CategoriasPrendas? CategoriaPrenda { get; set; }
 
         [NotMapped] //EF
         //este campo es para la grilla porque no tiene la inteligencia de mostrar el nombre del dpto usando el objeto "Departamento"
-        public string? CodigoCredencial
+        public string? Categoria
         {
             get
             {
-                if (Credencial != null)
-                    return Credencial.CodigoCredencial;
+                if (CategoriaPrenda != null)
+                    return CategoriaPrenda.Categoria;
                 else
                     return null;
             }
