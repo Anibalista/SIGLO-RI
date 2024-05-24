@@ -38,10 +38,8 @@ namespace RingoFront
                 {
                     //Guarda las credenciales del usuairo que puede entrar el usuario
 
-                    List<Credenciales>? credenciales = new();
-                    credenciales = LoginUsuario.Permisos(parametro);
-                    List<string>? acceso = new();
-                    acceso = (from credencial in credenciales select credencial.CodigoCredencial).ToList();
+                    List<string?> acceso = new();
+                    acceso = LoginUsuario.Permisos(parametro);
                     string mensaje = "Codigos de acceso: \n";
 
                     if ( acceso != null)

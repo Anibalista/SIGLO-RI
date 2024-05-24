@@ -25,18 +25,49 @@ namespace RingoDatos
             return user;
         }
 
-        public static List<Credenciales>? Accesos (Usuarios e)
+        public static List<string?> Accesos(Usuarios e)
         {
             ringoContext = new RingoDbContext();
-            List<int> ids = new List<int>();
-            ids = (from uc in ringoContext.UsuariosCredenciales where uc != null && uc.IdUsuario == e.IdUsuario
-                   select uc.IdCredencial).ToList();
-            List<Credenciales> credenciales = new();
-            credenciales = (from credencial in ringoContext.Credenciales
-                            where credencial != null && ids.Contains(credencial.IdCredencial)
-                            select credencial).ToList();
-            return credenciales;
+
+            List<string?> accesos = new();
+            accesos = ringoContext.UsuariosCredenciales
+            .Where(uc => uc.IdUsuario == e.IdUsuario)
+            .Select(uc => uc.CodigoCredencial)
+            .ToList();
+
+            return accesos;
         }
-        
+
+        public static List<Personas> ListaPersonas(Personas c, bool estado)
+        {
+            string e;
+            if (estado)
+                e = "Todos";
+            else
+                e = "Baja";
+
+            ringoContext = new RingoDbContext();
+            List<Personas> personas = new();
+            personas = ringoContext.Personas.Include("Estados").Where(p =>
+            (p.Dni != null ? p.Dni.Contains(c.Dni ?? "") : true)
+            ||
+            (p.Nombre != null ? p.Nombre.Contains(c.Nombre ?? "") : true)
+            ||
+            (p.Apellidos != null ? p.Apellidos.Contains(c.Apellidos ?? "") : true)
+            ||
+            (p.FechaNacimiento != null && c.FechaNacimiento != null && p.FechaNacimiento == c.FechaNacimiento)
+            ).Where(p => p.EstadoPersona != null && (p.EstadoPersona != e)).ToList();
+            return personas;
+        }
+
+        public static Clientes? Cliente(Personas p)
+        {
+            ringoContext = new RingoDbContext();
+            Clientes? cliente = new();
+            cliente = ringoContext.Clientes.Include("Personas").Where(c =>  c.IdPersona == p.IdPersona).FirstOrDefault();
+            return cliente;
+        }
+
+
     }
 }

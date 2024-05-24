@@ -16,11 +16,11 @@ namespace RingoEntidades
         [ForeignKey("Usuario")]
         public int IdUsuario { get; set; }
 
-        [ForeignKey("Credencial")]
+        [ForeignKey("Credenciales")]
         public int IdCredencial { get; set; }
 
         public Usuarios? Usuario { get; set; }
-        public Credenciales? Credencial { get; set; }
+        public Credenciales? Credenciales { get; set; }
 
         [NotMapped] //EF
         //este campo es para la grilla porque no tiene la inteligencia de mostrar el nombre del dpto usando el objeto "Departamento"
@@ -28,8 +28,8 @@ namespace RingoEntidades
         {
             get
             {
-                if (Credencial != null)
-                    return Credencial.CodigoCredencial;
+                if (Credenciales != null)
+                    return Credenciales.CodigoCredencial;
                 else
                     return null;
             }
