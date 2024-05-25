@@ -18,18 +18,18 @@ namespace RingoEntidades
 
         public int? CodigoPostal { get; set; }
 
-        [ForeignKey("Provincia")]
-        public int? IdProvincia { get; set; }
+        public int IdProvincia { get; set; }
 
-        public Provincias? Provincia { get; set; }
+        [ForeignKey("IdProvincia")]
+        public Provincias? Provincias { get; set; }
 
         [NotMapped]
         public string? NombreProvincia
         {
             get
             {
-                if (NombreProvincia != null)
-                    return Provincia.NombreProvincia;
+                if (Provincias != null)
+                    return Provincias.NombreProvincia;
                 else
                     return null;
             }

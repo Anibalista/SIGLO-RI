@@ -35,5 +35,17 @@ namespace RingoEntidades
                     return null;
             }
         }
+
+        [NotMapped]
+        public string? NombreYApellido
+        {
+            get
+            {
+                if (Usuarios != null)
+                    return Usuarios.Nombre+" "+Usuarios.Apellidos;
+                else
+                    return null;
+            }
+        }
     }
 }

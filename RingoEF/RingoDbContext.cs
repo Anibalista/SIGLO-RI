@@ -21,6 +21,19 @@ namespace RingoEF
         public DbSet<UsuariosCredenciales> UsuariosCredenciales { get; set; }
         public DbSet<Domicilios> Domicilios { get; set; }
         public DbSet<Clientes> Clientes { get; set; }
+        public DbSet<Puestos> Puestos { get; set; }
+        public DbSet<Empleados> Empleados { get; set; }
+        public DbSet<Empresas> Empresas { get; set; }
+        public DbSet<Sucursales> Sucursales { get; set; }
+        public DbSet<Proveedores> Proveedores { get; set; }
+        public DbSet<Contactos> Contactos { get; set; }
+        public DbSet<EstadosHistorias> EstadosHistorias { get; set; }
+        public DbSet<Telas> Telas { get; set; }
+        public DbSet<Talles> Talles { get; set; }
+        public DbSet<CategoriasPrendas> CategoriasPrendas { get; set; }
+        public DbSet<SubCategoriasPrendas> SubCategoriasPrendas{ get; set; }
+        public DbSet<Prendas> Prendas { get; set; }
+        public DbSet<DetallesPrendas> DetallesPrendas{ get; set; }
 
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

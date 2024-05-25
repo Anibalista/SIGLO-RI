@@ -25,22 +25,23 @@ namespace RingoEntidades
         [MaxLength(200)]
         public string? Observaciones { get; set; }
 
-        [ForeignKey("CondicionFiscal")]
-        public int? IdCondicionFiscal { get; set; }
+        public int IdCondicionFiscal { get; set; }
 
-        [ForeignKey("Estado")]
-        public int? IdEstado { get; set; }
+        public int IdEstado { get; set; }
 
-        public CondicionesFiscales? CondicionFiscal { get; set; }
-        public Estados? Estado { get; set; }
+        [ForeignKey("IdCondicionFiscal")]
+        public CondicionesFiscales? CondicionesFiscales { get; set; }
+
+        [ForeignKey("IdEstado")]
+        public Estados? Estados { get; set; }
 
         [NotMapped]
         public string? DetalleFiscal
         {
             get
             {
-                if (CondicionFiscal != null)
-                    return CondicionFiscal.DetalleFiscal;
+                if (CondicionesFiscales != null)
+                    return CondicionesFiscales.DetalleFiscal;
                 else
                     return null;
             }
@@ -51,8 +52,8 @@ namespace RingoEntidades
         {
             get
             {
-                if (Estado != null)
-                    return Estado.Estado;
+                if (Estados != null)
+                    return Estados.Estado;
                 else
                     return null;
             }

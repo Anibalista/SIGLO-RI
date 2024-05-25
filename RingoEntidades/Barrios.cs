@@ -16,18 +16,18 @@ namespace RingoEntidades
         [MaxLength(100)]
         public string? NombreBarrio { get; set; }
 
-        [ForeignKey("Ciudad")]
-        public int? IdCiudad {  get; set; }
+        public int IdCiudad { get; set; }
 
-        public Ciudades? Ciudad { get; set; }
+        [ForeignKey("IdCiudad")]
+        public Ciudades? Ciudades { get; set; }
 
         [NotMapped]
         public string? NombreCiudad
         {
             get
             {
-                if (IdCiudad != null)
-                    return Ciudad.NombreCiudad;
+                if (Ciudades != null)
+                    return Ciudades.NombreCiudad;
                 else
                     return null;
             }
