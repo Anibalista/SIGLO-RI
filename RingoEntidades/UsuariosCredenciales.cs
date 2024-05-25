@@ -18,7 +18,7 @@ namespace RingoEntidades
         public int IdCredencial { get; set; }
 
         [ForeignKey("IdUsuario")]
-        public Usuarios? Usuario { get; set; }
+        public Usuarios? Usuarios { get; set; }
 
         [ForeignKey("IdCredencial")]
         public Credenciales? Credenciales { get; set; }

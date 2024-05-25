@@ -25,15 +25,15 @@ namespace RingoDatos
             return user;
         }
 
-        public static List<string?> Accesos(Usuarios e)
+        public static List<string>? Accesos(Usuarios e)
         {
             ringoContext = new RingoDbContext();
-
-            List<string?> accesos = new();
-            accesos = ringoContext.UsuariosCredenciales
-            .Where(uc => uc.IdUsuario == e.IdUsuario)
-            .Select(uc => uc.CodigoCredencial)
-            .ToList();
+            List<string>? accesos = new();
+            accesos = (from U in ringoContext.Usuarios
+                                      join UC in ringoContext.UsuariosCredenciales on U.IdUsuario equals UC.IdUsuario
+                                      join C in ringoContext.Credenciales on UC.IdCredencial equals C.IdCredencial
+                                      where U.IdUsuario == e.IdUsuario
+                                      select C.CodigoCredencial).ToList();
 
             return accesos;
         }

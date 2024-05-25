@@ -25,46 +25,34 @@ namespace RingoFront
             //crear un Objeto usuarios vacio llamado parametro
             Usuarios parametro = new();
 
+            //Creo un mensaje de error para Validar
+            string mensaje = "";
+
             // Verificamos que no hayan espacios en blanco o ingreso nulo
-            if (!String.IsNullOrWhiteSpace(usuarioBuscar) && !String.IsNullOrWhiteSpace(contraseñaBuscar))
+            if (validarCampos(ref mensaje, usuarioBuscar, contraseñaBuscar))
             {
                 // insertamos los text box en las properties del objeto Usuarios llamado 'parametro'
                 parametro.NombreUsuario = usuarioBuscar;
                 parametro.ClaveUsuario = contraseñaBuscar;
-
+                int id = LoginUsuario.login(parametro);
                 //llamamos al metodo login de la capa negocio enviandole el objeto Usuarios 'parametro' como parametro
 
-                if (LoginUsuario.login(parametro)) //el metodo login devuelve true o false
+                if (id > 0) //el metodo login devuelve true o false
                 {
+                    parametro.IdUsuario = id;
                     //Guarda las credenciales del usuairo que puede entrar el usuario
-
-                    List<string?> acceso = new();
+                    List<string>? acceso = new();
                     acceso = LoginUsuario.Permisos(parametro);
-                    string mensaje = "Codigos de acceso: \n";
-
-                    if ( acceso != null)
-                    {
-                        for (int i = 0; i < acceso.Count(); i++)
-                        {
-                            mensaje += acceso.ElementAt(i);
-                            if (i == acceso.Count() - 1)
-                                mensaje += "!";
-                            else
-                                mensaje += "\n";
-                        }
-                    }
-                    else
-                    {
-                        mensaje = "\n No tiene codigos de acceso";
-                    }
-
+                    Permisos.PermisosUsuario = acceso;
+                    txtUsuario.Text = "";
+                    txtContraseña.Text = "";
                     //si devuelve true debe abrir el MDI Parent 'FrmPrincipal' y cerrar el login
 
 
 
 
                     //Prueba con un mensaje
-                    MessageBox.Show("Ingreso Exitoso. \n" + mensaje);
+                    MessageBox.Show("Ingreso Exitoso.");
 
                 }
                 else
@@ -75,8 +63,20 @@ namespace RingoFront
 
             else
             {
-                _ = MessageBox.Show("Ingrese Usuario y Contraseña correctos.");
+                _ = MessageBox.Show("Error" + mensaje);
             }
+        }
+
+        private bool validarCampos(ref string mensaje, string usuario, string contrase )
+        {
+            if (String.IsNullOrWhiteSpace(usuario))
+                mensaje += "\nIngrese un Usuario";
+            if (String.IsNullOrWhiteSpace(contrase))
+                mensaje += "\nIngrese una contraseña";
+            if (!String.IsNullOrWhiteSpace(mensaje))
+                return false;
+            else
+                return true;
         }
 
         private void enter(object sender, KeyEventArgs e)
