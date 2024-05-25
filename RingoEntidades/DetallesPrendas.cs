@@ -13,6 +13,11 @@ namespace RingoEntidades
         [Key]
         public int IdDetallePrenda { get; set; }
 
+        public int IdPrenda { get; set; }
+
+        public int? IdTalle { get; set; }
+
+        [MaxLength(30)]
         public string? CodigoDetalle { get; set; }
         
         [Column(TypeName ="decimal(10,2)")]
@@ -26,13 +31,10 @@ namespace RingoEntidades
         [Column(TypeName = "decimal(10,2)")]
         public decimal? CostoPrenda { get; set; }
 
-        [ForeignKey("Prenda")]
-        public int IdPrenda { get; set; }
-
-        [ForeignKey("Talle")]
-        public int IdTalle { get; set; }
-
+        [ForeignKey("IdPrenda")]
         public Prendas? Prenda { get; set; }
+
+        [ForeignKey("IdTalle")]
         public Talles? Talle { get; set; }
 
         [NotMapped]
@@ -60,7 +62,7 @@ namespace RingoEntidades
         }
 
         [NotMapped]
-        public int? CodigoPrenda
+        public string? CodigoPrenda
         {
             get
             {

@@ -6,31 +6,18 @@ namespace RingoNegocio
 {
     public class LoginUsuario
     {
-        public static bool login (Usuarios u)
+        public static int login (Usuarios u)
         {
             Usuarios? user = RingoDatosEF.Usuario(u);
             if (user == null)
-            {
-                return false;
-            } else
-            {
-                return true;
-            }
+                return 0;
+            return user.IdUsuario;
         }
 
-        public static List<string?> Permisos(Usuarios u)
+        public static List<string>? Permisos(Usuarios u)
         {
-
-            List<string?> credenciales = new();
-            try
-            {
-                credenciales = RingoDatosEF.Accesos(u);
-            } catch (Exception ex)
-            {
-                string nula = ex.Message;
-                credenciales.Add(nula);
-            }
-
+            List<string>? credenciales = new();
+            credenciales = RingoDatosEF.Accesos(u);
             return credenciales;
         }
     }

@@ -28,26 +28,28 @@ namespace RingoEntidades
         [MaxLength(200)]
         public string? ObservacionesBarrio { get; set; }
 
-        [ForeignKey("Ciudad")]
-        public int? IdCiudad {  get; set; }
+        public int? IdCiudad { get; set; }
 
-        [ForeignKey("Barrio")]
         public int? IdBarrio { get; set; }
 
-        [ForeignKey("Persona")]
         public int? IdPersona { get; set; }
 
-        public Ciudades? Ciudad { get; set; }
-        public Barrios? Barrio { get; set; }
-        public Personas? Persona { get; set; }
+        [ForeignKey("IdCiudad")]
+        public Ciudades? Ciudades { get; set; }
+
+        [ForeignKey("IdBarrio")]
+        public Barrios? Barrios { get; set; }
+
+        [ForeignKey("IdPersona")]
+        public Personas? Personas { get; set; }
 
         [NotMapped]
         public string? NombreCiudad
         {
             get
             {
-                if (Ciudad != null)
-                    return Ciudad.NombreCiudad;
+                if (Ciudades != null)
+                    return Ciudades.NombreCiudad;
                 else
                     return null;
             }
@@ -58,8 +60,8 @@ namespace RingoEntidades
         {
             get
             {
-                if (Ciudad != null)
-                    return Ciudad.CodigoPostal;
+                if (Ciudades != null)
+                    return Ciudades.CodigoPostal;
                 else
                     return null;
             }
@@ -70,8 +72,8 @@ namespace RingoEntidades
         {
             get
             {
-                if (Barrio != null)
-                    return Barrio.NombreBarrio;
+                if (Barrios != null)
+                    return Barrios.NombreBarrio;
                 else
                     return null;
             }
@@ -83,8 +85,8 @@ namespace RingoEntidades
         {
             get
             {
-                if (Persona != null)
-                    return Persona.Nombre;
+                if (Personas != null)
+                    return Personas.Nombre;
                 else
                     return null;
             }
@@ -95,8 +97,8 @@ namespace RingoEntidades
         {
             get
             {
-                if (Persona != null)
-                    return Persona.Apellidos;
+                if (Personas != null)
+                    return Personas.Apellidos;
                 else
                     return null;
             }
@@ -107,8 +109,8 @@ namespace RingoEntidades
         {
             get
             {
-                if (Persona != null)
-                    return Persona.Dni;
+                if (Personas != null)
+                    return Personas.Dni;
                 else
                     return null;
             }
@@ -119,8 +121,8 @@ namespace RingoEntidades
         {
             get
             {
-                if (Persona != null)
-                    return Persona.EstadoPersona;
+                if (Personas != null)
+                    return Personas.EstadoPersona;
                 else
                     return null;
             }
@@ -131,8 +133,8 @@ namespace RingoEntidades
         {
             get
             {
-                if (Persona != null)
-                    return Persona.DetalleFiscal;
+                if (Personas != null)
+                    return Personas.DetalleFiscal;
                 else
                     return null;
             }
@@ -143,8 +145,8 @@ namespace RingoEntidades
         {
             get
             {
-                if (Persona != null)
-                    return Persona.Cuil;
+                if (Personas != null)
+                    return Personas.Cuil;
                 else
                     return null;
             }
@@ -155,8 +157,8 @@ namespace RingoEntidades
         {
             get
             {
-                if (Persona != null)
-                    return Persona.Observaciones;
+                if (Personas != null)
+                    return Personas.Observaciones;
                 else
                     return null;
             }

@@ -13,25 +13,21 @@ namespace RingoEntidades
         [Key]
         public int IdPrenda { get; set; }
 
-        public int? CodigoPrenda { get; set; }
+        [MaxLength(30)]
+        public string? CodigoPrenda { get; set; }
+
+        public int? IdSubCategoriaPrenda { get; set; }
+
+        public int? IdTela { get; set; }
 
         [MaxLength(150)]
         public string? DescripcionPrenda { get; set; }
 
-        [ForeignKey("CategoriaPrenda")]
-        public int? IdCategoriaPrenda {  get; set; }
+        [ForeignKey("IdSubCategoriaPrenda")]
+        public SubCategoriasPrendas? SubCategoriaPrenda { get; set; }
 
-        [ForeignKey("SubCategoriaPrenda")]
-        public int? IdSubCategoriaPrenda { get; set; }
-
-        [ForeignKey("Tela")]
-        public int? IdTela { get; set; }
-
-        CategoriasPrendas? CategoriaPrenda { get; set; }
-        SubCategoriasPrendas? SubCategoriaPrenda { get; set; }
-        Telas? TelaPrenda { get; set; }
-
-        
+        [ForeignKey("IdTela")]
+        public Telas? TelaPrenda { get; set; }
 
         [NotMapped]
         public string? SubCategoria
@@ -50,7 +46,7 @@ namespace RingoEntidades
         {
             get
             {
-                if (SubCategoria != null)
+                if (SubCategoriaPrenda != null)
                     return SubCategoriaPrenda.Categoria;
                 else
                     return null;

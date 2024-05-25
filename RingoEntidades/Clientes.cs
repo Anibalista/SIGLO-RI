@@ -8,9 +8,9 @@ namespace RingoEntidades
         [Key]
         public int IdCliente { get; set; }
 
-        [ForeignKey("Persona")]
         public int IdPersona { get; set; }
 
+        [ForeignKey("IdPersona")]
         public Personas? Personas { get; set; }
 
         [NotMapped]

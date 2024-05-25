@@ -18,7 +18,7 @@ namespace RingoEntidades
         public int IdCredencial { get; set; }
 
         [ForeignKey("IdUsuario")]
-        public Usuarios? Usuario { get; set; }
+        public Usuarios? Usuarios { get; set; }
 
         [ForeignKey("IdCredencial")]
         public Credenciales? Credenciales { get; set; }
@@ -31,6 +31,18 @@ namespace RingoEntidades
             {
                 if (Credenciales != null)
                     return Credenciales.CodigoCredencial;
+                else
+                    return null;
+            }
+        }
+
+        [NotMapped]
+        public string? NombreYApellido
+        {
+            get
+            {
+                if (Usuarios != null)
+                    return Usuarios.Nombre+" "+Usuarios.Apellidos;
                 else
                     return null;
             }
