@@ -13,13 +13,14 @@ namespace RingoEntidades
         [Key]
         public int IdUsuarioCredencial { get; set; }
 
-        [ForeignKey("Usuario")]
         public int IdUsuario { get; set; }
 
-        [ForeignKey("Credenciales")]
         public int IdCredencial { get; set; }
 
+        [ForeignKey("IdUsuario")]
         public Usuarios? Usuario { get; set; }
+
+        [ForeignKey("IdCredencial")]
         public Credenciales? Credenciales { get; set; }
 
         [NotMapped] //EF
