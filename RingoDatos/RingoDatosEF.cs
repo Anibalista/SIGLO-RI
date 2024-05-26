@@ -180,13 +180,29 @@ namespace RingoDatos
             return ciudades;
         }
 
+        public static List<Ciudades>? CiudadesPorProvincia (Provincias? p)
+        {
+            if (p == null)
+                return null;
+
+            List<Ciudades>? ciudades = new();
+            try
+            {
+                ringoContext = new RingoDbContext();
+                ciudades = ringoContext.Ciudades.Where(c => c.IdProvincia == p.IdProvincia).Order().ToList();
+            }
+            catch (Exception) { }
+
+            return ciudades;
+        }
+
         public static List<Provincias>? Provincias()
         {
             List<Provincias>? provincias = new();
             try
             {
                 ringoContext = new RingoDbContext();
-                provincias = ringoContext.Provincias.ToList();
+                provincias = ringoContext.Provincias.Order().ToList();
             }
             catch (Exception) { }
 
