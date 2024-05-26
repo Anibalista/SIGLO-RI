@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             txtIdCliente = new TextBox();
             txtIdPersona = new TextBox();
             txtDni = new TextBox();
@@ -50,6 +51,7 @@
             label2 = new Label();
             label1 = new Label();
             groupBox2 = new GroupBox();
+            checkEliminarDomicilio = new CheckBox();
             cbBarrio = new ComboBox();
             label16 = new Label();
             txtObsBarrio = new TextBox();
@@ -61,7 +63,9 @@
             label11 = new Label();
             label8 = new Label();
             cbProvincias = new ComboBox();
+            provinciasBindingSource = new BindingSource(components);
             cbCiudades = new ComboBox();
+            CiudadesBindingSource = new BindingSource(components);
             txtCodPostal = new TextBox();
             txtDepartamento = new TextBox();
             txtPiso = new TextBox();
@@ -69,6 +73,7 @@
             txtCalle = new TextBox();
             cbDomicilios = new ComboBox();
             groupBox3 = new GroupBox();
+            checkEliminarContacto = new CheckBox();
             label24 = new Label();
             label23 = new Label();
             label22 = new Label();
@@ -77,7 +82,7 @@
             txtEMail = new TextBox();
             txtUserRedSocial = new TextBox();
             checkWhatsApp = new CheckBox();
-            textBox8 = new TextBox();
+            txtTelefono = new TextBox();
             txtArea = new TextBox();
             label18 = new Label();
             cbRedesSociales = new ComboBox();
@@ -85,13 +90,18 @@
             cbContactos = new ComboBox();
             btnCancelarC1 = new Button();
             btnConfirmarC1 = new Button();
+            estadosBindingSource = new BindingSource(components);
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)provinciasBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)CiudadesBindingSource).BeginInit();
             groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)estadosBindingSource).BeginInit();
             SuspendLayout();
             // 
             // txtIdCliente
             // 
+            txtIdCliente.Enabled = false;
             txtIdCliente.Location = new Point(76, 22);
             txtIdCliente.Name = "txtIdCliente";
             txtIdCliente.Size = new Size(38, 27);
@@ -99,6 +109,7 @@
             // 
             // txtIdPersona
             // 
+            txtIdPersona.Enabled = false;
             txtIdPersona.Location = new Point(76, 51);
             txtIdPersona.Name = "txtIdPersona";
             txtIdPersona.Size = new Size(38, 27);
@@ -180,11 +191,14 @@
             // 
             // cbEstados
             // 
+            cbEstados.DataSource = estadosBindingSource;
+            cbEstados.DisplayMember = "Estado";
             cbEstados.FormattingEnabled = true;
             cbEstados.Location = new Point(54, 80);
             cbEstados.Name = "cbEstados";
             cbEstados.Size = new Size(104, 27);
             cbEstados.TabIndex = 20;
+            cbEstados.ValueMember = "IdEstado";
             // 
             // dtFechaNac
             // 
@@ -299,6 +313,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(checkEliminarDomicilio);
             groupBox2.Controls.Add(cbBarrio);
             groupBox2.Controls.Add(label16);
             groupBox2.Controls.Add(txtObsBarrio);
@@ -320,10 +335,20 @@
             groupBox2.Font = new Font("Roboto Condensed", 12F, FontStyle.Regular, GraphicsUnit.Point);
             groupBox2.Location = new Point(12, 156);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(776, 142);
+            groupBox2.Size = new Size(776, 158);
             groupBox2.TabIndex = 10;
             groupBox2.TabStop = false;
             groupBox2.Text = "Datos Domicilio";
+            // 
+            // checkEliminarDomicilio
+            // 
+            checkEliminarDomicilio.AutoSize = true;
+            checkEliminarDomicilio.Location = new Point(267, 129);
+            checkEliminarDomicilio.Name = "checkEliminarDomicilio";
+            checkEliminarDomicilio.Size = new Size(223, 23);
+            checkEliminarDomicilio.TabIndex = 34;
+            checkEliminarDomicilio.Text = "Quiero Eliminar este domicilio";
+            checkEliminarDomicilio.UseVisualStyleBackColor = true;
             // 
             // cbBarrio
             // 
@@ -422,19 +447,33 @@
             // 
             // cbProvincias
             // 
+            cbProvincias.DataSource = provinciasBindingSource;
+            cbProvincias.DisplayMember = "NombreProvincia";
             cbProvincias.FormattingEnabled = true;
             cbProvincias.Location = new Point(621, 55);
             cbProvincias.Name = "cbProvincias";
             cbProvincias.Size = new Size(149, 27);
             cbProvincias.TabIndex = 7;
+            cbProvincias.ValueMember = "IdProvincia";
+            // 
+            // provinciasBindingSource
+            // 
+            provinciasBindingSource.DataSource = typeof(RingoEntidades.Provincias);
             // 
             // cbCiudades
             // 
+            cbCiudades.DataSource = CiudadesBindingSource;
+            cbCiudades.DisplayMember = "NombreCiudad";
             cbCiudades.FormattingEnabled = true;
             cbCiudades.Location = new Point(386, 55);
             cbCiudades.Name = "cbCiudades";
             cbCiudades.Size = new Size(189, 27);
             cbCiudades.TabIndex = 6;
+            cbCiudades.ValueMember = "IdCiudad";
+            // 
+            // CiudadesBindingSource
+            // 
+            CiudadesBindingSource.DataSource = typeof(RingoEntidades.Ciudades);
             // 
             // txtCodPostal
             // 
@@ -481,6 +520,7 @@
             // 
             // groupBox3
             // 
+            groupBox3.Controls.Add(checkEliminarContacto);
             groupBox3.Controls.Add(label24);
             groupBox3.Controls.Add(label23);
             groupBox3.Controls.Add(label22);
@@ -489,7 +529,7 @@
             groupBox3.Controls.Add(txtEMail);
             groupBox3.Controls.Add(txtUserRedSocial);
             groupBox3.Controls.Add(checkWhatsApp);
-            groupBox3.Controls.Add(textBox8);
+            groupBox3.Controls.Add(txtTelefono);
             groupBox3.Controls.Add(txtArea);
             groupBox3.Controls.Add(label18);
             groupBox3.Controls.Add(cbRedesSociales);
@@ -498,10 +538,20 @@
             groupBox3.Font = new Font("Roboto Condensed", 12F, FontStyle.Regular, GraphicsUnit.Point);
             groupBox3.Location = new Point(12, 320);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(776, 100);
+            groupBox3.Size = new Size(776, 129);
             groupBox3.TabIndex = 11;
             groupBox3.TabStop = false;
             groupBox3.Text = "Datos de Contacto";
+            // 
+            // checkEliminarContacto
+            // 
+            checkEliminarContacto.AutoSize = true;
+            checkEliminarContacto.Location = new Point(267, 100);
+            checkEliminarContacto.Name = "checkEliminarContacto";
+            checkEliminarContacto.Size = new Size(220, 23);
+            checkEliminarContacto.TabIndex = 33;
+            checkEliminarContacto.Text = "Quiero Eliminar este contacto";
+            checkEliminarContacto.UseVisualStyleBackColor = true;
             // 
             // label24
             // 
@@ -579,13 +629,13 @@
             checkWhatsApp.Text = "Tiene WhatsApp";
             checkWhatsApp.UseVisualStyleBackColor = true;
             // 
-            // textBox8
+            // txtTelefono
             // 
-            textBox8.Location = new Point(422, 26);
-            textBox8.Name = "textBox8";
-            textBox8.PlaceholderText = "número";
-            textBox8.Size = new Size(112, 27);
-            textBox8.TabIndex = 22;
+            txtTelefono.Location = new Point(422, 26);
+            txtTelefono.Name = "txtTelefono";
+            txtTelefono.PlaceholderText = "número";
+            txtTelefono.Size = new Size(112, 27);
+            txtTelefono.TabIndex = 22;
             // 
             // txtArea
             // 
@@ -634,22 +684,27 @@
             // btnCancelarC1
             // 
             btnCancelarC1.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            btnCancelarC1.Location = new Point(167, 470);
+            btnCancelarC1.Location = new Point(228, 486);
             btnCancelarC1.Name = "btnCancelarC1";
             btnCancelarC1.Size = new Size(144, 43);
             btnCancelarC1.TabIndex = 12;
             btnCancelarC1.Text = "Cancelar";
             btnCancelarC1.UseVisualStyleBackColor = true;
+            btnCancelarC1.Click += btnCancelarC1_Click;
             // 
             // btnConfirmarC1
             // 
             btnConfirmarC1.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            btnConfirmarC1.Location = new Point(436, 470);
+            btnConfirmarC1.Location = new Point(424, 486);
             btnConfirmarC1.Name = "btnConfirmarC1";
             btnConfirmarC1.Size = new Size(163, 43);
             btnConfirmarC1.TabIndex = 13;
             btnConfirmarC1.Text = "Confirmar";
             btnConfirmarC1.UseVisualStyleBackColor = true;
+            // 
+            // estadosBindingSource
+            // 
+            estadosBindingSource.DataSource = typeof(RingoEntidades.Estados);
             // 
             // FrmEditClientes
             // 
@@ -667,8 +722,11 @@
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)provinciasBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)CiudadesBindingSource).EndInit();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)estadosBindingSource).EndInit();
             ResumeLayout(false);
         }
 
@@ -720,7 +778,7 @@
         private TextBox txtEMail;
         private TextBox txtUserRedSocial;
         private CheckBox checkWhatsApp;
-        private TextBox textBox8;
+        private TextBox txtTelefono;
         private TextBox txtArea;
         private Label label18;
         private Label label23;
@@ -731,5 +789,10 @@
         private Button btnCancelarC1;
         private Button btnConfirmarC1;
         private ComboBox cbEstados;
+        private CheckBox checkEliminarDomicilio;
+        private CheckBox checkEliminarContacto;
+        private BindingSource provinciasBindingSource;
+        private BindingSource CiudadesBindingSource;
+        private BindingSource estadosBindingSource;
     }
 }
