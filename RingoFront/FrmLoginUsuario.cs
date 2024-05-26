@@ -41,11 +41,13 @@ namespace RingoFront
                 {
                     parametro.IdUsuario = id;
                     //Guarda las credenciales del usuairo que puede entrar el usuario
-                    List<string>? acceso = new();
-                    acceso = LoginUsuario.Permisos(parametro);
-                    Permisos.PermisosUsuario = acceso;
-                    txtUsuario.Text = "";
-                    txtContraseña.Text = "";
+                    
+                    if (LoginUsuario.Permisos(parametro))
+                    {
+                        txtUsuario.Text = "";
+                        txtContraseña.Text = "";
+                    }
+                    
                     //si devuelve true debe abrir el MDI Parent 'FrmPrincipal' y cerrar el login
 
 
