@@ -14,11 +14,17 @@ namespace RingoNegocio
             return user.IdUsuario;
         }
 
-        public static List<string>? Permisos(Usuarios u)
+        public static bool Permisos(Usuarios u)
         {
-            List<string>? credenciales = new();
-            credenciales = RingoDatosEF.Accesos(u);
-            return credenciales;
+            bool tiene = false;
+            List<string>? credenciales = RingoDatosEF.Accesos(u);
+            if (credenciales != null)
+            {
+                Llaves.CodigosAcceso = credenciales;
+                tiene = true;
+            }
+            return tiene;
         }
     }
+
 }
