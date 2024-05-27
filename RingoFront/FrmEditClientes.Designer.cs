@@ -747,6 +747,7 @@
             Controls.Add(groupBox1);
             Name = "FrmEditClientes";
             Text = "FrmEditClientes";
+            Load += FrmEditClientes_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)estadosBindingSource).EndInit();

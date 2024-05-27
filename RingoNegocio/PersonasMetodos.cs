@@ -25,5 +25,14 @@ namespace RingoNegocio
             redesSociales = RingoDatosEF.RedesSociales();
             return redesSociales;
         }
+
+        public static List<Personas>? buscarPersonas(Clientes c,Personas p, Ciudades ci, bool baja)
+        {
+            List<Personas>? personas = new();
+            personas = RingoDatosEF.BuscarPersonas(c, p, ci, baja);
+            return personas;
+        }
+
+
     }
 }

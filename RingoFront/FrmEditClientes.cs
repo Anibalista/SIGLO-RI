@@ -28,7 +28,7 @@ namespace RingoFront
         }
 
 
-        private void CargarComboEstados (Personas p)
+        private void CargarComboEstados(Personas p)
         {
             _estados.Clear();
             Estados estados = new Estados();
@@ -49,7 +49,7 @@ namespace RingoFront
             cbEstados.SelectedIndex = i;
         }
 
-        private void CargarComboProvincias ()
+        private void CargarComboProvincias()
         {
             _provincias.Clear();
             Provincias provincia = new Provincias();
@@ -65,7 +65,7 @@ namespace RingoFront
             cbProvincias.SelectedIndex = 0;
         }
 
-        private void CargarComboCiudades (Provincias p)
+        private void CargarComboCiudades(Provincias p)
         {
             _ciudades.Clear();
             Ciudades ciudades = new Ciudades();
@@ -75,7 +75,7 @@ namespace RingoFront
             if (p == null)
             {
                 _ciudades[0].NombreCiudad = "Error: no fue \nPosible cargar Provincias";
-            }   
+            }
             else if (p.IdProvincia != 0)
             {
                 List<Ciudades>? ciudades1 = RingoNegocio.DomiciliosMetodos.CiudadesPorProvincia(p);
@@ -88,7 +88,7 @@ namespace RingoFront
             cbCiudades.SelectedIndex = 0;
         }
 
-        private void CargarComboRedesSociales ()
+        private void CargarComboRedesSociales()
         {
             _redesSociales.Clear();
             RedesSociales redesSociales = new RedesSociales();
@@ -116,13 +116,13 @@ namespace RingoFront
                 DomiciliosMostrar.Add(domicilios);
                 i++;
             }
-            
+
             List<Domicilios>? domicilios1 = new();
             if (p != null)
                 domicilios1 = RingoNegocio.DomiciliosMetodos.DomiciliosPersona(p);
             if (domicilios1 != null)
                 _domicilios.AddRange(domicilios1);
-            
+
             if (_domicilios.Count > i)
             {
                 while (i < _domicilios.Count)
@@ -250,6 +250,11 @@ namespace RingoFront
         private void btnCancelarC1_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void FrmEditClientes_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

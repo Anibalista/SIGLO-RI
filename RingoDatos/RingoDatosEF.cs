@@ -51,6 +51,37 @@ namespace RingoDatos
             return accesos;
         }
 
+        public static List<Personas>? BuscarPersonas(Clientes c, Personas p, Ciudades ci, bool baja)
+        {
+            string e;
+            if (baja)
+                e = "Todos";
+            else
+                e = "Baja";
+            List<Personas>? personas = new();
+            try
+            {
+                ringoContext = new RingoDbContext();
+                personas = (from P in ringoContext.Personas
+                            join C in ringoContext.Clientes on P.IdPersona equals C.IdPersona
+                            where ((P.Dni != null ? P.Dni.Contains(p.Dni ?? "") : true)
+                                   ||
+                                   (P.Nombre != null ? P.Nombre.Contains(p.Nombre ?? "") : true)
+                                   ||
+                                   (P.Apellidos != null ? P.Apellidos.Contains(p.Apellidos ?? "") : true)
+                                   &&
+                                   (P.EstadoPersona != e)) select P).ToList();
+                if (personas != null && ci.IdCiudad != 0)
+                {
+                    personas = (from cliente in personas
+                                join D in ringoContext.Domicilios on ci.IdCiudad equals D.IdCiudad
+                                where (cliente.IdPersona == D.IdPersona) select cliente).ToList();
+                }
+            }
+            catch (Exception) { }
+            return personas;
+        }
+
         public static List<Personas> ListaPersonas(Personas c, bool baja)
         {
             //el booleano me dice si la busqueda incluye a los estados Baja
@@ -86,7 +117,22 @@ namespace RingoDatos
             return personas;
         }
 
-        public static Clientes? BuscarCliente(Personas p)
+        public static Personas? BuscarPersonaPorCliente(Clientes c)
+        {
+            if (c == null)
+                return null;
+            Personas? persona = new();
+            try
+            {
+                ringoContext = new RingoDbContext();
+                persona = ringoContext.Personas.Where(p => p.IdPersona == c.IdPersona).FirstOrDefault();
+            }
+            catch (Exception) { }
+
+            return persona;
+        }
+
+        public static Clientes? BuscarClientePorPersona(Personas p)
         {
             if (p == null)
                 return null;

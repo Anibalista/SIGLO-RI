@@ -17,7 +17,12 @@ namespace RingoNegocio
             provincias = RingoDatosEF.Provincias();
             return provincias;
         }
-
+        public static List<Ciudades>? CiudadesTodas()
+        {
+            List<Ciudades>? ciudades = new();
+            ciudades = RingoDatosEF.Ciudades();
+            return ciudades;
+        }
         public static List<Ciudades>? CiudadesPorProvincia (Provincias p)
         {
             if (p == null)
