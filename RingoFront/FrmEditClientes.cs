@@ -21,14 +21,16 @@ namespace RingoFront
         public List<Contactos> _contactos = new List<Contactos>();
         public List<Provincias> _provincias = new List<Provincias>();
         public List<Estados> _estados = new List<Estados>();
+        public List<RedesSociales> _redesSociales = new List<RedesSociales>();
         public FrmEditClientes()
         {
             InitializeComponent();
         }
 
 
-        private void CargarComboEstados ()
+        private void CargarComboEstados (Personas p)
         {
+            _estados.Clear();
             Estados estados = new Estados();
             estados.Estado = "Error: no fue \nPosible cargar Estados";
             estados.Indole = "Personas";
@@ -37,11 +39,19 @@ namespace RingoFront
             if (estados1 == null)
                 _estados.Add(estados);
             estadosBindingSource.DataSource = _estados;
-            cbEstados.SelectedIndex = 0;
+            int i = 0;
+            if (p != null)
+            {
+                Estados? actual = (from estado in _estados where estado.IdEstado == p.IdEstado select estado).FirstOrDefault();
+                if (actual != null)
+                    i = _estados.IndexOf(actual);
+            }
+            cbEstados.SelectedIndex = i;
         }
 
         private void CargarComboProvincias ()
         {
+            _provincias.Clear();
             Provincias provincia = new Provincias();
             provincia.NombreProvincia = "Provincia";
             provincia.IdProvincia = 0;
@@ -57,6 +67,7 @@ namespace RingoFront
 
         private void CargarComboCiudades (Provincias p)
         {
+            _ciudades.Clear();
             Ciudades ciudades = new Ciudades();
             ciudades.NombreCiudad = "Ciudad";
             ciudades.IdCiudad = 0;
@@ -75,6 +86,101 @@ namespace RingoFront
             }
             CiudadesBindingSource.DataSource = _ciudades;
             cbCiudades.SelectedIndex = 0;
+        }
+
+        private void CargarComboRedesSociales ()
+        {
+            _redesSociales.Clear();
+            RedesSociales redesSociales = new RedesSociales();
+            redesSociales.NombreRedSocial = "Nueva Red Social";
+            redesSociales.IdRedSocial = 0;
+            _redesSociales.Add(redesSociales);
+            List<RedesSociales>? redesSociales1 = RingoNegocio.PersonasMetodos.RedesSociales();
+            if (redesSociales1 != null)
+                _redesSociales.AddRange(redesSociales1);
+            redesSocialesbindingSource.DataSource = _redesSociales;
+            cbRedesSociales.SelectedIndex = 0;
+        }
+
+        private void CargarComboDomicilios(Personas? p)
+        {
+            _domicilios.Clear();
+            List<Domicilios> DomiciliosMostrar = new();
+            int i = 0;
+            if (modo != EnumModoForm.Consulta)
+            {
+                Domicilios domicilios = new Domicilios();
+                domicilios.Calle = "Nuevo Domicilio";
+                domicilios.IdDomicilio = 0;
+                _domicilios.Add(domicilios);
+                DomiciliosMostrar.Add(domicilios);
+                i++;
+            }
+            
+            List<Domicilios>? domicilios1 = new();
+            if (p != null)
+                domicilios1 = RingoNegocio.DomiciliosMetodos.DomiciliosPersona(p);
+            if (domicilios1 != null)
+                _domicilios.AddRange(domicilios1);
+            
+            if (_domicilios.Count > i)
+            {
+                while (i < _domicilios.Count)
+                {
+                    Domicilios nuevo = new();
+                    nuevo.IdDomicilio = _domicilios[i].IdDomicilio;
+                    if (modo == EnumModoForm.Consulta)
+                        nuevo.Calle = "Domicilio " + (i + 1);
+                    else
+                        nuevo.Calle = "Domicilio " + i;
+                    DomiciliosMostrar.Add(nuevo);
+                    i++;
+                }
+            }
+            cbDomicilios.DataSource = DomiciliosMostrar;
+            cbDomicilios.DisplayMember = "Calle";
+            cbDomicilios.ValueMember = "IdDomicilio";
+            cbDomicilios.SelectedIndex = 0;
+        }
+
+        private void CargarComboContactos(Personas p)
+        {
+            _contactos.Clear();
+            List<Contactos> ContactosMostrar = new();
+            int i = 0;
+            if (modo != EnumModoForm.Consulta)
+            {
+                Contactos contactos = new Contactos();
+                contactos.IdContacto = 0;
+                contactos.Telefono = "Nuevo Contacto";
+                _contactos.Add(contactos);
+                ContactosMostrar.Add(contactos);
+                i++;
+            }
+            List<Contactos>? contactos1 = new();
+            if (p != null)
+                contactos1 = RingoNegocio.ContactosMetodos.ContactosPorPersona(p);
+            if (contactos1 != null)
+                _contactos.AddRange(contactos1);
+
+            if (_contactos.Count > i)
+            {
+                while (i < _contactos.Count)
+                {
+                    Contactos nuevo = new();
+                    nuevo.IdContacto = _contactos[i].IdContacto;
+                    if (modo == EnumModoForm.Consulta)
+                        nuevo.Telefono = "Contacto " + (i + 1);
+                    else
+                        nuevo.Telefono = "Contacto " + i;
+                    ContactosMostrar.Add(nuevo);
+                    i++;
+                }
+            }
+            cbContactos.DataSource = ContactosMostrar;
+            cbContactos.DisplayMember = "Telefono";
+            cbContactos.ValueMember = "IdContacto";
+            cbContactos.SelectedIndex = 0;
         }
 
         private void LimpiarControles()
@@ -99,6 +205,7 @@ namespace RingoFront
             checkWhatsApp.Checked = true;
             checkEliminarContacto.Checked = false;
             checkEliminarDomicilio.Checked = false;
+            checkEliminarPersona.Checked = false;
             txtCalle.Text = "";
             txtAltura.Text = "";
             txtPiso.Text = "";
@@ -128,6 +235,7 @@ namespace RingoFront
             checkWhatsApp.Enabled = habilitar;
             checkEliminarDomicilio.Enabled = habilitar;
             checkEliminarContacto.Enabled = habilitar;
+
             txtCalle.Enabled = habilitar;
             txtAltura.Enabled = habilitar;
             txtPiso.Enabled = habilitar;

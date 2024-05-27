@@ -32,7 +32,7 @@ namespace RingoNegocio
             if (p == null)
                 return null;
             List<Domicilios>? domicilios = new();
-
+            domicilios = RingoDatosEF.DomiciliosPorPersona(p);
             return domicilios;
         }
     }

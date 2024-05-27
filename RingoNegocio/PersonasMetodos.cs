@@ -18,5 +18,12 @@ namespace RingoNegocio
             estados = RingoDatosEF.EstadosPorIndole(indole);
             return estados;
         }
+
+        public static List<RedesSociales>? RedesSociales ()
+        {
+            List<RedesSociales>? redesSociales = new();
+            redesSociales = RingoDatosEF.RedesSociales();
+            return redesSociales;
+        }
     }
 }

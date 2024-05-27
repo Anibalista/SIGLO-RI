@@ -241,7 +241,7 @@ namespace RingoDatos
             return estados;
         }
 
-        public List<Contactos>? ContactosPorPersona (Personas? p)
+        public static List<Contactos>? ContactosPorPersona(Personas? p)
         {
             if (p == null)
                 return null;
@@ -257,7 +257,7 @@ namespace RingoDatos
             return contactos;
         }
 
-        public List<Contactos>? ContactosPorEmpresa(Empresas? e)
+        public static List<Contactos>? ContactosPorEmpresa(Empresas? e)
         {
             if (e == null)
                 return null;
@@ -273,7 +273,7 @@ namespace RingoDatos
             return contactos;
         }
 
-        public List<Contactos>? ContactosPorSucursal(Sucursales? s)
+        public static List<Contactos>? ContactosPorSucursal(Sucursales? s)
         {
             if (s == null)
                 return null;
@@ -289,7 +289,7 @@ namespace RingoDatos
             return contactos;
         }
 
-        public List<RedesSociales>? RedesSociales()
+        public static List<RedesSociales>? RedesSociales()
         {
             List<RedesSociales>? redesSociales = new();
             try

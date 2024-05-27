@@ -39,6 +39,7 @@
             txtObservaciones = new TextBox();
             groupBox1 = new GroupBox();
             cbEstados = new ComboBox();
+            estadosBindingSource = new BindingSource(components);
             dtFechaNac = new DateTimePicker();
             label10 = new Label();
             label9 = new Label();
@@ -86,17 +87,21 @@
             txtArea = new TextBox();
             label18 = new Label();
             cbRedesSociales = new ComboBox();
+            redesSocialesbindingSource = new BindingSource(components);
             label17 = new Label();
             cbContactos = new ComboBox();
             btnCancelarC1 = new Button();
             btnConfirmarC1 = new Button();
-            estadosBindingSource = new BindingSource(components);
+            checkEliminarPersona = new CheckBox();
+            domiciliosBindingSource = new BindingSource(components);
             groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)estadosBindingSource).BeginInit();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)provinciasBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)CiudadesBindingSource).BeginInit();
             groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)estadosBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)redesSocialesbindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)domiciliosBindingSource).BeginInit();
             SuspendLayout();
             // 
             // txtIdCliente
@@ -199,6 +204,10 @@
             cbEstados.Size = new Size(104, 27);
             cbEstados.TabIndex = 20;
             cbEstados.ValueMember = "IdEstado";
+            // 
+            // estadosBindingSource
+            // 
+            estadosBindingSource.DataSource = typeof(RingoEntidades.Estados);
             // 
             // dtFechaNac
             // 
@@ -657,11 +666,18 @@
             // 
             // cbRedesSociales
             // 
+            cbRedesSociales.DataSource = redesSocialesbindingSource;
+            cbRedesSociales.DisplayMember = "NombreRedSocial";
             cbRedesSociales.FormattingEnabled = true;
             cbRedesSociales.Location = new Point(97, 59);
             cbRedesSociales.Name = "cbRedesSociales";
             cbRedesSociales.Size = new Size(121, 27);
             cbRedesSociales.TabIndex = 19;
+            cbRedesSociales.ValueMember = "IdRedSocial";
+            // 
+            // redesSocialesbindingSource
+            // 
+            redesSocialesbindingSource.DataSource = typeof(RingoEntidades.RedesSociales);
             // 
             // label17
             // 
@@ -684,7 +700,7 @@
             // btnCancelarC1
             // 
             btnCancelarC1.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            btnCancelarC1.Location = new Point(228, 486);
+            btnCancelarC1.Location = new Point(227, 494);
             btnCancelarC1.Name = "btnCancelarC1";
             btnCancelarC1.Size = new Size(144, 43);
             btnCancelarC1.TabIndex = 12;
@@ -695,22 +711,35 @@
             // btnConfirmarC1
             // 
             btnConfirmarC1.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            btnConfirmarC1.Location = new Point(424, 486);
+            btnConfirmarC1.Location = new Point(408, 494);
             btnConfirmarC1.Name = "btnConfirmarC1";
             btnConfirmarC1.Size = new Size(163, 43);
             btnConfirmarC1.TabIndex = 13;
             btnConfirmarC1.Text = "Confirmar";
             btnConfirmarC1.UseVisualStyleBackColor = true;
             // 
-            // estadosBindingSource
+            // checkEliminarPersona
             // 
-            estadosBindingSource.DataSource = typeof(RingoEntidades.Estados);
+            checkEliminarPersona.AutoSize = true;
+            checkEliminarPersona.Enabled = false;
+            checkEliminarPersona.Font = new Font("Roboto Condensed", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            checkEliminarPersona.Location = new Point(265, 455);
+            checkEliminarPersona.Name = "checkEliminarPersona";
+            checkEliminarPersona.Size = new Size(245, 27);
+            checkEliminarPersona.TabIndex = 14;
+            checkEliminarPersona.Text = "Quiero Eliminar Esta Persona";
+            checkEliminarPersona.UseVisualStyleBackColor = true;
+            // 
+            // domiciliosBindingSource
+            // 
+            domiciliosBindingSource.DataSource = typeof(RingoEntidades.Domicilios);
             // 
             // FrmEditClientes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(801, 541);
+            ClientSize = new Size(801, 549);
+            Controls.Add(checkEliminarPersona);
             Controls.Add(btnConfirmarC1);
             Controls.Add(btnCancelarC1);
             Controls.Add(groupBox3);
@@ -720,14 +749,17 @@
             Text = "FrmEditClientes";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)estadosBindingSource).EndInit();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)provinciasBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)CiudadesBindingSource).EndInit();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)estadosBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)redesSocialesbindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)domiciliosBindingSource).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -794,5 +826,8 @@
         private BindingSource provinciasBindingSource;
         private BindingSource CiudadesBindingSource;
         private BindingSource estadosBindingSource;
+        private CheckBox checkEliminarPersona;
+        private BindingSource redesSocialesbindingSource;
+        private BindingSource domiciliosBindingSource;
     }
 }
